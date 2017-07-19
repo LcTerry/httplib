@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName '1.0.2'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -65,10 +65,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
 }
-task makeJar(type:Copy){
-delete 'build/libs/httpLib.jar'
-    from('build/intermediates/bundels/release/')
-    into('build/libs')
-    include('classes.jar')
-    rename('classess.jar','httpLib.jar')
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
 }
